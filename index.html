@@ -1,1271 +1,638 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>International Agriculture University (IAU)</title>
-  <meta name="description" content="International Agriculture University uchun agro uslubdagi bilingval ma'lumot platformasi.">
-  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skript va Qabul</title>
   <style>
-    :root {
-      --bg: #f6f3e8;
-      --surface: rgba(255, 252, 244, 0.84);
-      --surface-strong: #fffdf6;
-      --ink: #1f2b20;
-      --muted: #607063;
-      --line: rgba(31, 43, 32, 0.1);
-      --leaf: #2f6f3e;
-      --leaf-dark: #1f4d2a;
-      --wheat: #d9b86d;
-      --soil: #8d5b35;
-      --mint: #d9ead7;
-      --glow: 0 18px 50px rgba(47, 111, 62, 0.16);
-      --radius: 24px;
-      --radius-sm: 16px;
-      --font: "Segoe UI", "Trebuchet MS", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: var(--font);
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(217, 234, 215, 0.9), transparent 32%),
-        radial-gradient(circle at right 20%, rgba(217, 184, 109, 0.22), transparent 28%),
-        linear-gradient(180deg, #f9f6ee 0%, #f0ead8 100%);
-      min-height: 100vh;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
-        repeating-linear-gradient(
-          120deg,
-          rgba(47, 111, 62, 0.02) 0,
-          rgba(47, 111, 62, 0.02) 12px,
-          transparent 12px,
-          transparent 36px
-        );
-      opacity: 0.8;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    .shell {
-      width: min(1200px, calc(100% - 32px));
-      margin: 24px auto 40px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 18px;
-      background: rgba(255, 253, 246, 0.7);
-      border: 1px solid rgba(255,255,255,0.5);
-      box-shadow: var(--glow);
-      border-radius: 999px;
-      backdrop-filter: blur(14px);
-      position: sticky;
-      top: 18px;
-      z-index: 10;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .logo-slot {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
-      border: 1.5px dashed rgba(47, 111, 62, 0.4);
-      background:
-        linear-gradient(135deg, rgba(217, 234, 215, 0.95), rgba(255, 253, 246, 0.95));
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      color: var(--leaf-dark);
-      font-weight: 700;
-      font-size: 11px;
-      text-align: center;
-      padding: 6px;
-    }
-
-    .brand-copy small,
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--leaf);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .brand-copy h1 {
-      margin: 4px 0 0;
-      font-size: clamp(18px, 3vw, 24px);
-      line-height: 1.1;
-    }
-
-    .lang-switcher {
-      display: inline-flex;
-      padding: 4px;
-      border-radius: 999px;
-      background: rgba(47, 111, 62, 0.08);
-      border: 1px solid rgba(47, 111, 62, 0.14);
-      gap: 4px;
-      flex-shrink: 0;
-    }
-
-    .lang-switcher button {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.25s ease;
-    }
-
-    .lang-switcher button.active {
-      background: var(--leaf);
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(47, 111, 62, 0.24);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
-      margin-top: 28px;
-      align-items: stretch;
-    }
-
-    .panel {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.65);
-      box-shadow: var(--glow);
-      border-radius: var(--radius);
-      backdrop-filter: blur(16px);
-    }
-
-    .hero-copy {
-      padding: 34px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-copy::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      bottom: -60px;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(217, 184, 109, 0.35), transparent 70%);
-      border-radius: 50%;
+    :root{
+      --primary:#14532d;
+      --primary-2:#0f3f23;
+      --primary-soft:#e8f5ec;
+      --bg:#f4f8f5;
+      --card:#ffffff;
+      --text:#132018;
+      --sub:#597062;
+      --border:#d8e6dc;
+      --danger:#b42318;
+      --warning:#b76e00;
+      --shadow:0 10px 26px rgba(20,83,45,.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--primary),var(--primary-2));
+      color:#fff;
+      padding:20px 16px;
+      box-shadow:var(--shadow);
+      position:sticky;
+      top:0;
+      z-index:50;
     }
 
-    .hero-copy h2 {
-      margin: 14px 0 16px;
-      font-size: clamp(34px, 5vw, 60px);
-      line-height: 0.97;
-      letter-spacing: -0.04em;
-      max-width: 11ch;
-    }
-
-    .hero-copy p {
-      margin: 0;
-      max-width: 62ch;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-weight: 700;
-      border: 0;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-    }
-
-    .button.primary {
-      background: linear-gradient(135deg, var(--leaf), #4a8f57);
-      color: #fff;
-      box-shadow: 0 18px 30px rgba(47, 111, 62, 0.22);
-    }
-
-    .button.secondary {
-      background: rgba(255,255,255,0.72);
-      color: var(--leaf-dark);
-      border: 1px solid rgba(47, 111, 62, 0.15);
-    }
-
-    .button:hover { transform: translateY(-2px); }
-
-    .hero-side {
-      display: grid;
-      gap: 16px;
-      padding: 18px;
-    }
-
-    .quick-card,
-    .mini-card,
-    .section,
-    .stat-card,
-    .timeline-card,
-    .price-card,
-    .person-card,
-    .script-card,
-    .db-card,
-    .contact-card {
-      background: rgba(255, 253, 246, 0.9);
-      border: 1px solid rgba(31, 43, 32, 0.08);
-      border-radius: 22px;
-      box-shadow: 0 10px 30px rgba(31, 43, 32, 0.06);
-    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+    }
 
-    .quick-card {
-      padding: 22px;
-      background:
-        linear-gradient(145deg, rgba(47, 111, 62, 0.96), rgba(31, 77, 42, 0.94));
-      color: #f8f6ef;
+    .head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
     }
 
-    .quick-card .eyebrow { color: rgba(255,255,255,0.74); }
-
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .mini-card {
-      padding: 16px;
-    }
-
-    .mini-card strong {
-      display: block;
-      font-size: 22px;
-      margin-top: 8px;
-    }
-
-    .grid {
-      display: grid;
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .stats-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .stat-card {
-      padding: 22px;
-    }
-
-    .stat-card span {
-      color: var(--muted);
-      font-size: 13px;
-      display: block;
-      margin-bottom: 12px;
+    .logo{
+      width:58px;
+      height:58px;
+      border-radius:16px;
+      background:#fff;
+      color:var(--primary);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      font-weight:800;
+      flex-shrink:0;
     }
 
-    .stat-card strong {
-      display: block;
-      font-size: 32px;
-      line-height: 1;
+    .brand h1{
+      margin:0;
+      font-size:24px;
+      line-height:1.2;
     }
 
-    .section {
-      padding: 28px;
+    .brand p{
+      margin:5px 0 0;
+      font-size:14px;
+      opacity:.92;
+    }
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 16px 40px;
     }
 
-    .section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
+    .home{
+      text-align:center;
+      padding:32px 0 12px;
     }
 
-    .section-header h3 {
-      margin: 8px 0 0;
-      font-size: clamp(24px, 4vw, 34px);
-      line-height: 1.05;
+    .home h2{
+      margin:0 0 8px;
+      font-size:34px;
+    }
+
+    .home p{
+      margin:0;
+      color:var(--sub);
+      font-size:16px;
+      line-height:1.6;
     }
 
-    .section-header p,
-    .muted {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
+    .hero-card,
+    .section-panel,
+    .item-card,
+    .admin-box,
+    .empty-box{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
 
-    .two-col {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .hero-card{
+      margin-top:28px;
+      padding:24px;
+      background:linear-gradient(180deg,#ffffff,var(--primary-soft));
     }
 
-    .timeline {
-      display: grid;
-      gap: 14px;
+    .hero-card h3{
+      margin:0 0 10px;
+      font-size:24px;
+      color:var(--primary-2);
     }
 
-    .timeline-card {
-      padding: 18px 18px 18px 58px;
-      position: relative;
+    .hero-card p{
+      margin:0;
+      line-height:1.8;
+      color:#20412b;
     }
 
-    .timeline-card::before {
-      content: attr(data-step);
-      position: absolute;
-      left: 18px;
-      top: 18px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: rgba(47, 111, 62, 0.14);
-      color: var(--leaf-dark);
-      font-weight: 800;
-      font-size: 13px;
+    .section-buttons{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-top:26px;
     }
 
-    .list,
-    .chips,
-    .persons,
-    .prices,
-    .database-grid,
-    .contacts {
-      display: grid;
-      gap: 14px;
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 22px;
+      font-size:16px;
+      font-weight:600;
+      transition:.2s ease;
     }
 
-    .list-item {
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(217, 234, 215, 0.34);
-      border: 1px solid rgba(47, 111, 62, 0.08);
-    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-outline{background:#fff;color:var(--primary);border:1px solid var(--border)}
+    .btn-danger{background:var(--danger);color:#fff}
+    .btn-warning{background:var(--warning);color:#fff}
 
-    .list-item strong,
-    .person-card strong,
-    .price-card strong,
-    .db-card strong,
-    .contact-card strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 17px;
+    .section-panel{
+      display:none;
+      padding:22px;
+      margin-top:10px;
     }
 
-    .program-columns,
-    .opportunity-columns,
-    .contacts {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .section-panel.active{display:block}
 
-    .chips {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    .toolbar{
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:18px;
     }
 
-    .chip {
-      padding: 15px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.76);
-      border: 1px solid rgba(47, 111, 62, 0.12);
-      color: var(--leaf-dark);
-      font-weight: 700;
-      text-align: center;
+    .toolbar-left,
+    .toolbar-right{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
     }
 
-    .prices {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .search{
+      min-width:260px;
+      flex:1;
     }
 
-    .price-card {
-      padding: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(249, 246, 235, 0.98));
+    input[type="text"],
+    input[type="password"],
+    textarea{
+      width:100%;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      border-radius:12px;
+      padding:13px 14px;
+      font-size:15px;
+      outline:none;
     }
 
-    .price-tag {
-      display: inline-flex;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(47, 111, 62, 0.1);
-      color: var(--leaf-dark);
-      font-weight: 800;
-      font-size: 13px;
+    textarea{
+      resize:vertical;
+      min-height:120px;
+      font-family:inherit;
     }
 
-    .persons {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    label{
+      display:block;
+      font-size:13px;
+      margin-bottom:6px;
+      color:#284233;
+      font-weight:600;
     }
 
-    .person-card {
-      padding: 20px;
+    .summary-box{
+      background:var(--primary-soft);
+      border:1px solid #cfe3d5;
+      border-radius:16px;
+      padding:20px;
+      margin-bottom:18px;
     }
 
-    .person-role {
-      color: var(--muted);
-      font-size: 13px;
+    .summary-box h3{
+      margin:0 0 8px;
+      color:var(--primary-2);
+      font-size:24px;
     }
 
-    .script-card {
-      padding: 26px;
-      background:
-        linear-gradient(135deg, rgba(31, 77, 42, 0.97), rgba(61, 108, 48, 0.96)),
-        linear-gradient(180deg, rgba(255,255,255,0.08), transparent);
-      color: #f7f5ef;
+    .summary-box p{
+      margin:0;
+      line-height:1.8;
     }
 
-    .script-card p,
-    .script-card li,
-    .script-card .muted {
-      color: rgba(247, 245, 239, 0.82);
+    .admin-box{
+      display:none;
+      padding:18px;
+      margin-bottom:18px;
     }
 
-    .script-card ul {
-      margin: 14px 0 0;
-      padding-left: 18px;
-      line-height: 1.7;
-    }
+    .admin-box.active{display:block}
 
-    .database-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
     }
 
-    .db-card {
-      padding: 20px;
-      background: rgba(255,255,255,0.72);
+    .item-card{
+      padding:18px;
+      margin-bottom:14px;
     }
 
-    .db-card code {
-      display: block;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: #203124;
-      color: #dff5dd;
-      font-family: Consolas, monospace;
-      font-size: 12px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      margin-top: 12px;
+    .item-card h4{
+      margin:0 0 8px;
+      color:var(--primary-2);
+      font-size:18px;
+      line-height:1.5;
     }
 
-    .contact-card {
-      padding: 20px;
+    .item-summary{
+      font-weight:600;
+      color:#355344;
+      margin-bottom:10px;
+      line-height:1.7;
     }
 
-    .footer {
-      margin-top: 20px;
-      padding: 22px 24px;
-      border-radius: 24px;
-      background: rgba(31, 43, 32, 0.94);
-      color: rgba(255,255,255,0.78);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+    .item-details{
+      color:#22392c;
+      line-height:1.8;
+      white-space:pre-wrap;
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      animation: rise 0.7s ease forwards;
+    .empty-box{
+      padding:22px;
+      text-align:center;
+      color:var(--sub);
     }
-
-    .fade-in:nth-child(2) { animation-delay: 0.08s; }
-    .fade-in:nth-child(3) { animation-delay: 0.16s; }
-    .fade-in:nth-child(4) { animation-delay: 0.24s; }
 
-    @keyframes rise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .hint{
+      margin-top:12px;
+      color:var(--sub);
+      font-size:13px;
+      line-height:1.7;
     }
 
-    @media (max-width: 1080px) {
-      .hero,
-      .stats-grid,
-      .two-col,
-      .program-columns,
-      .opportunity-columns,
-      .prices,
-      .persons,
-      .database-grid,
-      .contacts {
-        grid-template-columns: 1fr 1fr;
-      }
+    .hidden{display:none !important}
 
-      .hero { grid-template-columns: 1fr; }
+    footer{
+      text-align:center;
+      color:var(--sub);
+      font-size:13px;
+      padding:12px 0 28px;
     }
 
-    @media (max-width: 720px) {
-      .shell { width: min(100% - 20px, 1200px); }
-      .topbar {
-        border-radius: 28px;
-        padding: 16px;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .brand { align-items: flex-start; }
-      .lang-switcher { width: fit-content; }
-      .hero-copy,
-      .hero-side,
-      .section,
-      .script-card { padding: 22px; }
-      .stats-grid,
-      .two-col,
-      .program-columns,
-      .opportunity-columns,
-      .prices,
-      .persons,
-      .database-grid,
-      .contacts,
-      .quick-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-copy h2 { max-width: none; }
-      .footer { align-items: flex-start; }
+    @media (max-width: 760px){
+      .home h2{font-size:28px}
+      .grid-2{grid-template-columns:1fr}
+      .search{min-width:100%}
+      .brand h1{font-size:21px}
     }
   </style>
 </head>
 <body>
-  <div class="shell" id="top">
-    <header class="topbar">
+  <header>
+    <div class="wrap head">
       <div class="brand">
-        <div class="logo-slot" id="logoSlot">LOGO JOYI</div>
-        <div class="brand-copy">
-          <small data-i18n="brandLabel">Agro Education Platform</small>
-          <h1>International Agriculture University (IAU)</h1>
+        <div class="logo">SQ</div>
+        <div>
+          <h1>Skript va Qabul</h1>
+          <p>Google Sheets bilan ishlaydigan ma’lumotlar sahifasi</p>
         </div>
       </div>
-      <div class="lang-switcher" aria-label="Language switcher">
-        <button type="button" class="active" data-lang-btn="uz">O'zbek</button>
-        <button type="button" data-lang-btn="ru">Русский</button>
-      </div>
-    </header>
+    </div>
+  </header>
 
-    <section class="hero">
-      <div class="panel hero-copy fade-in">
-        <div class="eyebrow" data-i18n="heroEyebrow">International Agro Campus</div>
-        <h2 data-i18n="heroTitle">Qishloq xo'jaligi ta'limining yangi avlodi</h2>
-        <p data-i18n="heroText">
-          IAU 2022-yilda O'zbekiston Respublikasi Qishloq xo'jaligi vazirligi va Buyuk Britaniyaning Royal Agricultural University hamkorligida tashkil etilgan zamonaviy xalqaro universitetdir.
+  <main>
+    <section id="homeView" class="home">
+      <h2>Kerakli bo‘limni tanlang</h2>
+      <p>
+        Bu sahifa 2 ta bo‘limdan iborat: <b>Skript</b> va <b>Qabul</b>.
+        Ma’lumotlar Google Sheets orqali olinadi va yangilanadi.
+      </p>
+
+      <div class="section-buttons">
+        <button class="btn btn-primary" onclick="openSection('Skript')">Skript</button>
+        <button class="btn btn-primary" onclick="openSection('Qabul')">Qabul</button>
+      </div>
+
+      <div class="hero-card">
+        <h3>Yangi tuzilma</h3>
+        <p>
+          Tepada bitta bosh qism chiqadi, pastida esa batafsil ma’lumotlar kartalar ko‘rinishida chiqadi.
+          Ma’lumot qo‘shish va import qilish mumkin. Import qilishda parol so‘raladi.
         </p>
-        <div class="hero-actions">
-          <a class="button primary" href="#programs" data-i18n="heroPrimary">Yo'nalishlarni ko'rish</a>
-          <a class="button secondary" href="#contacts" data-i18n="heroSecondary">Qabul bo'limi bilan bog'lanish</a>
+      </div>
+    </section>
+
+    <section id="sectionView" class="section-panel">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button class="btn btn-outline" onclick="goHome()">⬅ Asosiy sahifa</button>
+          <button class="btn btn-outline" onclick="toggleAdmin()">🔐 Qo‘shish / Import</button>
+        </div>
+
+        <div class="toolbar-right search">
+          <input id="searchInput" type="text" placeholder="Qidirish..." oninput="renderItems()" />
         </div>
       </div>
 
-      <div class="panel hero-side fade-in">
-        <div class="quick-card">
-          <div class="eyebrow" data-i18n="quickLabel">Asosiy ko'rsatkichlar</div>
-          <h3 data-i18n="quickTitle">IAU haqida qisqa ma'lumot</h3>
-          <div class="quick-grid">
-            <div class="mini-card">
-              <span data-i18n="establishedLabel">Tashkil etilgan</span>
-              <strong>2022</strong>
-            </div>
-            <div class="mini-card">
-              <span data-i18n="studentsLabel">Talabalar</span>
-              <strong>800+</strong>
-            </div>
-            <div class="mini-card">
-              <span data-i18n="locationLabel">Joylashuv</span>
-              <strong data-i18n="locationValue">Qibray, Toshkent</strong>
-            </div>
-            <div class="mini-card">
-              <span data-i18n="languagesLabel">Ta'lim tillari</span>
-              <strong data-i18n="languagesValue">UZ / RU / EN</strong>
-            </div>
+      <div id="summaryBox" class="summary-box"></div>
+
+      <div id="adminBox" class="admin-box">
+        <h3 style="margin-top:0;color:var(--primary-2)">Ma’lumot qo‘shish va import qilish</h3>
+
+        <div class="grid-2">
+          <div>
+            <label for="itemTitle">Sarlavha</label>
+            <input id="itemTitle" type="text" placeholder="Masalan: 1) Umumiy ma’lumot" />
+          </div>
+          <div>
+            <label for="itemSummary">Bosh qism</label>
+            <input id="itemSummary" type="text" placeholder="Qisqa ko‘rinishdagi matn" />
           </div>
         </div>
-        <div class="mini-card">
-          <span data-i18n="diplomaLabel">Diplom imkoniyati</span>
-          <strong data-i18n="diplomaValue">Ingliz dasturlari uchun Royal Agricultural University diplomi</strong>
-        </div>
-        <div class="mini-card">
-          <span data-i18n="discountLabel">Chegirmalar</span>
-          <strong data-i18n="discountValue">15% va 10% muddatli to'lov chegirmalari, 25% gacha maxsus imtiyoz</strong>
-        </div>
-      </div>
-    </section>
 
-    <section class="grid stats-grid">
-      <div class="stat-card fade-in">
-        <span data-i18n="statCampus">Kampus turi</span>
-        <strong data-i18n="statCampusValue">Davlat ishtirokidagi xalqaro universitet</strong>
-      </div>
-      <div class="stat-card fade-in">
-        <span data-i18n="statPartners">Asoschilar</span>
-        <strong data-i18n="statPartnersValue">Vazirlik + RAU</strong>
-      </div>
-      <div class="stat-card fade-in">
-        <span data-i18n="statExam">Imtihonlar</span>
-        <strong data-i18n="statExamValue">DTM va offline</strong>
-      </div>
-      <div class="stat-card fade-in">
-        <span data-i18n="statDorm">Talabalar sharoiti</span>
-        <strong data-i18n="statDormValue">Yotoqxona mavjud</strong>
-      </div>
-    </section>
+        <div style="margin-top:14px;">
+          <label for="itemDetails">Batafsil ma’lumot</label>
+          <textarea id="itemDetails" placeholder="To‘liq ma’lumotni shu yerga yozing..."></textarea>
+        </div>
 
-    <section class="section" id="about">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="aboutLabel">Umumiy ma'lumot</div>
-          <h3 data-i18n="aboutTitle">IAU xalqaro agro-ta'lim markazi</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+          <button class="btn btn-primary" onclick="addItem()">➕ Ma’lumot qo‘shish</button>
+          <button class="btn btn-warning" onclick="document.getElementById('importFile').click()">📥 Import qilish</button>
+          <input id="importFile" type="file" accept=".json" class="hidden" onchange="handleImport(event)" />
         </div>
-        <p data-i18n="aboutText">
-          Universitet xalqaro akademik standartlar asosida faoliyat yuritadi va nazariya bilan amaliyotni birlashtirgan ta'lim modelini taklif qiladi.
-        </p>
-      </div>
-      <div class="grid two-col">
-        <div class="timeline">
-          <article class="timeline-card" data-step="01">
-            <strong data-i18n="timeline1Title">Prezident qarori asosida tashkil etilgan</strong>
-            <p class="muted" data-i18n="timeline1Text">2022-yil 7-maydagi PQ-237-sonli qaror bilan universitet faoliyati yo'lga qo'yilgan.</p>
-          </article>
-          <article class="timeline-card" data-step="02">
-            <strong data-i18n="timeline2Title">Royal Agricultural University bilan hamkorlik</strong>
-            <p class="muted" data-i18n="timeline2Text">Hamkorlik ingliz tilidagi dasturlar uchun Buyuk Britaniya diplomini olish imkonini beradi.</p>
-          </article>
-          <article class="timeline-card" data-step="03">
-            <strong data-i18n="timeline3Title">Amaliyotga yo'naltirilgan muhit</strong>
-            <p class="muted" data-i18n="timeline3Text">Talabalar real sektor, exchange dasturlar va xalqaro networking orqali tajriba orttiradi.</p>
-          </article>
-        </div>
-        <div class="list" id="aboutFacts"></div>
-      </div>
-    </section>
 
-    <section class="section" id="programs">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="programsLabel">Ta'lim yo'nalishlari</div>
-          <h3 data-i18n="programsTitle">Bakalavriat va magistratura dasturlari</h3>
-        </div>
-        <p data-i18n="programsText">
-          Ingliz, o'zbek va rus tillarida o'qish imkoniyati mavjud. Ingliz tilidagi dasturlarda xalqaro diplom beriladi.
-        </p>
-      </div>
-      <div class="grid program-columns">
-        <div>
-          <div class="eyebrow" data-i18n="englishProgramsLabel">Ingliz tilidagi dasturlar</div>
-          <div class="list" id="programsEnglish"></div>
-        </div>
-        <div>
-          <div class="eyebrow" data-i18n="localProgramsLabel">O'zbek/Rus dasturlari</div>
-          <div class="list" id="programsLocal"></div>
+        <div class="hint">
+          Import fayl <b>JSON</b> formatda bo‘lishi kerak. Importdan oldin parol so‘raladi.<br>
+          JSON misol: <code>[{"title":"...","summary":"...","details":"..."}]</code>
         </div>
       </div>
-      <div class="grid" style="margin-top:18px">
-        <div class="eyebrow" data-i18n="mastersLabel">Magistratura</div>
-        <div class="chips" id="mastersPrograms"></div>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="pricingLabel">Kontrakt va chegirmalar</div>
-          <h3 data-i18n="pricingTitle">To'lovlar va imtiyozlar</h3>
-        </div>
-        <p data-i18n="pricingText">
-          To'lov tizimi oddiy bloklarda ko'rsatildi, qabul bo'limi bilan bog'lanib to'liq tafsilot olish mumkin.
-        </p>
-      </div>
-      <div class="prices" id="prices"></div>
-      <div class="grid two-col" style="margin-top:18px">
-        <div class="section" style="padding:22px">
-          <div class="eyebrow" data-i18n="examLabel">Imtihon tartibi</div>
-          <div class="list" id="examRules"></div>
-        </div>
-        <div class="section" style="padding:22px">
-          <div class="eyebrow" data-i18n="benefitsLabel">Qo'shimcha imkoniyatlar</div>
-          <div class="list" id="discounts"></div>
-        </div>
-      </div>
+      <div id="itemsContainer"></div>
     </section>
+  </main>
 
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="opportunityLabel">Xalqaro va talabalik muhiti</div>
-          <h3 data-i18n="opportunityTitle">IAU nima taklif qiladi?</h3>
-        </div>
-        <p data-i18n="opportunityText">
-          Universitet kuchli professorlar, amaliy ta'lim va xalqaro tajriba orqali talabalarni kelajak kasbiga tayyorlaydi.
-        </p>
-      </div>
-      <div class="grid opportunity-columns">
-        <div>
-          <div class="eyebrow" data-i18n="internationalLabel">Xalqaro imkoniyatlar</div>
-          <div class="list" id="opportunities"></div>
-        </div>
-        <div>
-          <div class="eyebrow" data-i18n="studentLifeLabel">Talabalar uchun sharoitlar</div>
-          <div class="list" id="studentLife"></div>
-        </div>
-      </div>
-      <div class="grid" style="margin-top:18px">
-        <div class="eyebrow" data-i18n="facultyLabel">Professor-o'qituvchilar geografiyasi</div>
-        <div class="chips" id="facultyCountries"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="leadersLabel">Rahbariyat va xodimlar</div>
-          <h3 data-i18n="leadersTitle">Asosiy mas'ullar</h3>
-        </div>
-        <p data-i18n="leadersText">
-          Quyida universitetning asosiy rahbariyati va akademik jamoasidan namunaviy tarkib keltirilgan.
-        </p>
-      </div>
-      <div class="persons" id="leaders"></div>
-      <div class="grid" style="margin-top:18px">
-        <div class="eyebrow" data-i18n="teachersLabel">Professor va o'qituvchilar</div>
-        <div class="persons" id="teachers"></div>
-      </div>
-    </section>
-
-    <section class="script-card" id="script">
-      <div class="section-header" style="margin-bottom:8px">
-        <div>
-          <div class="eyebrow" data-i18n="scriptLabel">Qabul bo'limi skripti</div>
-          <h3 data-i18n="scriptTitle">Abituriyent bilan aloqa uchun tayyor matn</h3>
-        </div>
-      </div>
-      <p data-i18n="scriptIntro">
-        Quyidagi blok qabul bo'limi operatorlari uchun qisqa va tartibli suhbat ssenariysi sifatida ishlatiladi.
-      </p>
-      <div class="grid two-col" style="margin-top:18px">
-        <div class="list" id="scriptBlocks"></div>
-        <div class="list" id="scriptQuestions"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="databaseLabel">Oddiy ma'lumotlar bazasi</div>
-          <h3 data-i18n="databaseTitle">Supabase uchun tayyor tuzilma</h3>
-        </div>
-        <p data-i18n="databaseText">
-          `supabase_lightweight.sql` faylida shu sahifadagi kontent uchun sodda jadval va seed ma'lumotlar yaratildi.
-        </p>
-      </div>
-      <div class="database-grid" id="databaseTables"></div>
-    </section>
-
-    <section class="section" id="contacts">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" data-i18n="contactLabel">Kontaktlar</div>
-          <h3 data-i18n="contactTitle">Qabul bo'limi bilan bog'lanish</h3>
-        </div>
-        <p data-i18n="contactText">
-          Telefon, email va Telegram bot orqali murojaat qilish mumkin.
-        </p>
-      </div>
-      <div class="contacts" id="contactsGrid"></div>
-    </section>
-
-    <footer class="footer">
-      <div>
-        <strong>International Agriculture University (IAU)</strong>
-        <div data-i18n="footerText">Agro uslubdagi bilingval taqdimot sahifasi va oddiy Supabase baza namunasi.</div>
-      </div>
-      <a href="#top" data-i18n="footerAction">Yuqoriga qaytish</a>
-    </footer>
-  </div>
+  <footer>
+    To‘q yashil dizayn asosida qayta ishlangan sahifa
+  </footer>
 
   <script>
-    const content = {
-      uz: {
-        brandLabel: "Agro Education Platform",
-        heroEyebrow: "International Agro Campus",
-        heroTitle: "Qishloq xo'jaligi ta'limining yangi avlodi",
-        heroText: "IAU 2022-yilda O'zbekiston Respublikasi Qishloq xo'jaligi vazirligi va Buyuk Britaniyaning Royal Agricultural University hamkorligida tashkil etilgan zamonaviy xalqaro universitetdir.",
-        heroPrimary: "Yo'nalishlarni ko'rish",
-        heroSecondary: "Qabul bo'limi bilan bog'lanish",
-        quickLabel: "Asosiy ko'rsatkichlar",
-        quickTitle: "IAU haqida qisqa ma'lumot",
-        establishedLabel: "Tashkil etilgan",
-        studentsLabel: "Talabalar",
-        locationLabel: "Joylashuv",
-        locationValue: "Qibray, Toshkent",
-        languagesLabel: "Ta'lim tillari",
-        languagesValue: "UZ / RU / EN",
-        diplomaLabel: "Diplom imkoniyati",
-        diplomaValue: "Ingliz dasturlari uchun Royal Agricultural University diplomi",
-        discountLabel: "Chegirmalar",
-        discountValue: "15% va 10% muddatli to'lov chegirmalari, 25% gacha maxsus imtiyoz",
-        statCampus: "Kampus turi",
-        statCampusValue: "Davlat ishtirokidagi xalqaro universitet",
-        statPartners: "Asoschilar",
-        statPartnersValue: "Vazirlik + RAU",
-        statExam: "Imtihonlar",
-        statExamValue: "DTM va offline",
-        statDorm: "Talabalar sharoiti",
-        statDormValue: "Yotoqxona mavjud",
-        aboutLabel: "Umumiy ma'lumot",
-        aboutTitle: "IAU xalqaro agro-ta'lim markazi",
-        aboutText: "Universitet xalqaro akademik standartlar asosida faoliyat yuritadi va nazariya bilan amaliyotni birlashtirgan ta'lim modelini taklif qiladi.",
-        timeline1Title: "Prezident qarori asosida tashkil etilgan",
-        timeline1Text: "2022-yil 7-maydagi PQ-237-sonli qaror bilan universitet faoliyati yo'lga qo'yilgan.",
-        timeline2Title: "Royal Agricultural University bilan hamkorlik",
-        timeline2Text: "Hamkorlik ingliz tilidagi dasturlar uchun Buyuk Britaniya diplomini olish imkonini beradi.",
-        timeline3Title: "Amaliyotga yo'naltirilgan muhit",
-        timeline3Text: "Talabalar real sektor, exchange dasturlar va xalqaro networking orqali tajriba orttiradi.",
-        programsLabel: "Ta'lim yo'nalishlari",
-        programsTitle: "Bakalavriat va magistratura dasturlari",
-        programsText: "Ingliz, o'zbek va rus tillarida o'qish imkoniyati mavjud. Ingliz tilidagi dasturlarda xalqaro diplom beriladi.",
-        englishProgramsLabel: "Ingliz tilidagi dasturlar",
-        localProgramsLabel: "O'zbek/Rus dasturlari",
-        mastersLabel: "Magistratura",
-        pricingLabel: "Kontrakt va chegirmalar",
-        pricingTitle: "To'lovlar va imtiyozlar",
-        pricingText: "To'lov tizimi oddiy bloklarda ko'rsatildi, qabul bo'limi bilan bog'lanib to'liq tafsilot olish mumkin.",
-        examLabel: "Imtihon tartibi",
-        benefitsLabel: "Qo'shimcha imkoniyatlar",
-        opportunityLabel: "Xalqaro va talabalik muhiti",
-        opportunityTitle: "IAU nima taklif qiladi?",
-        opportunityText: "Universitet kuchli professorlar, amaliy ta'lim va xalqaro tajriba orqali talabalarni kelajak kasbiga tayyorlaydi.",
-        internationalLabel: "Xalqaro imkoniyatlar",
-        studentLifeLabel: "Talabalar uchun sharoitlar",
-        facultyLabel: "Professor-o'qituvchilar geografiyasi",
-        leadersLabel: "Rahbariyat va xodimlar",
-        leadersTitle: "Asosiy mas'ullar",
-        leadersText: "Quyida universitetning asosiy rahbariyati va akademik jamoasidan namunaviy tarkib keltirilgan.",
-        teachersLabel: "Professor va o'qituvchilar",
-        scriptLabel: "Qabul bo'limi skripti",
-        scriptTitle: "Abituriyent bilan aloqa uchun tayyor matn",
-        scriptIntro: "Quyidagi blok qabul bo'limi operatorlari uchun qisqa va tartibli suhbat ssenariysi sifatida ishlatiladi.",
-        databaseLabel: "Oddiy ma'lumotlar bazasi",
-        databaseTitle: "Supabase uchun tayyor tuzilma",
-        databaseText: "supabase_lightweight.sql faylida shu sahifadagi kontent uchun sodda jadval va seed ma'lumotlar yaratildi.",
-        contactLabel: "Kontaktlar",
-        contactTitle: "Qabul bo'limi bilan bog'lanish",
-        contactText: "Telefon, email va Telegram bot orqali murojaat qilish mumkin.",
-        footerText: "Agro uslubdagi bilingval taqdimot sahifasi va oddiy Supabase baza namunasi.",
-        footerAction: "Yuqoriga qaytish",
-        aboutFacts: [
-          { title: "To'liq nomi", text: "International Agriculture University (IAU)" },
-          { title: "Joylashuvi", text: "Toshkent viloyati, Qibray tumani" },
-          { title: "Turi", text: "Davlat ishtirokidagi xalqaro universitet" },
-          { title: "Asoschilar", text: "O'zbekiston Respublikasi Qishloq xo'jaligi vazirligi va Royal Agricultural University" }
-        ],
-        englishPrograms: [
-          "BSc Agro-Economics",
-          "BSc Agro-Logistics",
-          "BSc Food Safety Management",
-          "BSc Smart Sustainable Agriculture",
-          "BSc Business Management"
-        ],
-        localPrograms: [
-          "Iqtisodiyot — 14 mln so'm",
-          "Agronomiya — 12 mln so'm",
-          "Oziq-ovqat texnologiyasi — 12 mln so'm",
-          "Biologiya — 12 mln so'm",
-          "Filologiya va tillarni o'qitish (ingliz tili) — 14 mln so'm"
-        ],
-        masters: [
-          "MSc Agri-Business Management",
-          "MSc Sustainable Agriculture and Food Safety"
-        ],
-        prices: [
-          { title: "Ingliz yo'nalishlari", price: "29.9 mln", text: "Kunduzgi ta'lim, xalqaro diplom imkoniyati bilan." },
-          { title: "O'zbek/Rus yo'nalishlari", price: "12-14 mln", text: "Mahalliy dasturlar uchun qulay kontrakt oralig'i." },
-          { title: "Magistratura", price: "48.8 mln", text: "Agrobiznes va barqaror qishloq xo'jaligi bo'yicha magistratura." }
-        ],
-        examRules: [
-          { title: "Xalqaro yo'nalishlar", text: "DTM orqali imtihon topshiriladi." },
-          { title: "O'zbek va rus tilidagi yo'nalishlar", text: "Offline tarzda kirish imtihoni o'tkaziladi." }
-        ],
-        discounts: [
-          { title: "15% chegirma", text: "30-iyungacha 100% to'lov qilgan abituriyentlar uchun." },
-          { title: "10% chegirma", text: "31-iyulgacha 25% to'lov qilganlar uchun." },
-          { title: "25% gacha imtiyoz", text: "Qishloq xo'jaligi vazirligi xodimlari farzandlari uchun, 30-iyungacha ma'lumotnoma bilan." }
-        ],
-        opportunities: [
-          { title: "Exchange dasturlari", text: "Buyuk Britaniya va Yevropa davlatlarida ta'lim almashinuvi." },
-          { title: "Study tour", text: "Akademik tashriflar va qisqa xalqaro safarlar." },
-          { title: "Networking", text: "Global professional tarmoq va xalqaro hamkorlik muhiti." },
-          { title: "Buyuk Britaniya diplomi", text: "Faqat ingliz tilidagi dasturlar uchun." }
-        ],
-        studentLife: [
-          { title: "Yotoqxona", text: "Talabalar uchun yashash sharoiti mavjud." },
-          { title: "Talabalar klublari", text: "Ijtimoiy faollik va rivojlanish uchun platforma." },
-          { title: "Amaliy mashg'ulotlar", text: "Nazariya va amaliyot birga olib boriladi." },
-          { title: "Ingliz tilidagi akademik muhit", text: "Xalqaro professorlar bilan zamonaviy o'quv muhiti." }
-        ],
-        facultyCountries: [
-          "AQSH", "Kanada", "Hindiston", "Pokiston", "Ispaniya", "Belgiya", "Tunis", "Polsha", "Nigeriya"
-        ],
-        leaders: [
-          { name: "Munira Aminova", role: "Rektor" },
-          { name: "Abdulla Primov", role: "Ilmiy tadqiqotlar, innovatsiyalar va ma'naviyat bo'yicha prorektor" },
-          { name: "Anvar Tursunov", role: "O'quv ishlari bo'yicha prorektor" },
-          { name: "Sunnatilla Rashidov", role: "Moliya va iqtisodiy ishlar bo'yicha prorektor" },
-          { name: "Jahongir Alimov", role: "Agrofan va biznes fakulteti dekani" },
-          { name: "Jurij Renkas", role: "Agroiqtisodiyot fakulteti dekani" }
-        ],
-        teachers: [
-          { name: "Dr. Sergei Yazvenko", role: "Professor" },
-          { name: "Carlos Martinez", role: "Dotsent" },
-          { name: "Dr. Bekhzod Egamberdiev", role: "Dotsent" },
-          { name: "Dr. Dinara Muzafarova", role: "Dotsent" },
-          { name: "Dr. Gabriel Ogunmola", role: "Dotsent" },
-          { name: "Dr. Grace Mukupa", role: "Dotsent" }
-        ],
-        scriptBlocks: [
-          {
-            title: "Kontakt o'rnatish",
-            text: "Assalomu alaykum [Ism], mening ismim Diyora, men International Agriculture University qabul bo'limidan qo'ng'iroq qilyapman. Siz 2026-2027 o'quv yili uchun universitetimizga qiziqish bildirgandingiz, shu sababli sizga qisqacha ma'lumot berib o'tmoqchi edim."
-          },
-          {
-            title: "Qisqa prezentatsiya",
-            text: "IAU 2022-yilda Royal Agricultural University bilan hamkorlikda tashkil etilgan. Ingliz tilidagi dasturlarda Buyuk Britaniya diplomi, xalqaro professorlar va exchange dasturlari mavjud."
-          },
-          {
-            title: "E'tiroz bilan ishlash",
-            text: "Agar kontrakt qimmat tuyulsa, IAU O'zbekistondagi Buyuk Britaniya diplomi beriladigan noyob davlat oliy ta'lim muassasasi ekanini ta'kidlash mumkin."
-          }
-        ],
-        scriptQuestions: [
-          { title: "Talabani tushunish", text: "Universitet yoki yo'nalish tanlashda siz uchun nimalar muhim?" },
-          { title: "Kasbiy motivatsiya", text: "Nima uchun aynan shu yo'nalishni tanladingiz va kelajakda nima bilan shug'ullanishni xohlaysiz?" },
-          { title: "Asosiy maqsad", text: "O'qishdan asosiy maqsadingiz nima va siz uchun qanday imkoniyatlar muhim?" }
-        ],
-        databaseTables: [
-          {
-            title: "universities",
-            text: "Universitetning asosiy profili: nomi, joylashuvi, tashkil topgan sana, hamkor universitet, telefon va email.",
-            code: "name\nlocation\nfounded_at\npartner_university\nphone\nemail"
-          },
-          {
-            title: "programs",
-            text: "Bakalavriat va magistratura dasturlari: tili, darajasi, kontrakt summasi va diplom turi.",
-            code: "title\nlanguage\nlevel\ntuition_uzs\ndiploma_type"
-          },
-          {
-            title: "admission_notes",
-            text: "Qabul bo'limi uchun imtihon qoidalari, chegirmalar, skript matnlari va savollar.",
-            code: "category\ntitle\nbody\nlanguage\npriority"
-          }
-        ],
-        contacts: [
-          { title: "Telefon", text: "+998 55 517 00 71" },
-          { title: "Email", text: "info@iau.uz" },
-          { title: "Telegram bot", text: "@iau_admission_bot" },
-          { title: "Manzil", text: "Toshkent viloyati, Qibray tumani" }
-        ]
-      },
-      ru: {
-        brandLabel: "Agro Education Platform",
-        heroEyebrow: "International Agro Campus",
-        heroTitle: "Новое поколение аграрного образования",
-        heroText: "IAU — современный международный университет, созданный в 2022 году в сотрудничестве Министерства сельского хозяйства Республики Узбекистан и Royal Agricultural University Великобритании.",
-        heroPrimary: "Смотреть программы",
-        heroSecondary: "Связаться с приемной комиссией",
-        quickLabel: "Ключевые показатели",
-        quickTitle: "Кратко об IAU",
-        establishedLabel: "Основан",
-        studentsLabel: "Студенты",
-        locationLabel: "Локация",
-        locationValue: "Кибрай, Ташкент",
-        languagesLabel: "Языки обучения",
-        languagesValue: "UZ / RU / EN",
-        diplomaLabel: "Возможность диплома",
-        diplomaValue: "Для английских программ выдается диплом Royal Agricultural University",
-        discountLabel: "Скидки",
-        discountValue: "Скидки 15% и 10% по срокам оплаты, специальная льгота до 25%",
-        statCampus: "Тип кампуса",
-        statCampusValue: "Международный университет с государственным участием",
-        statPartners: "Учредители",
-        statPartnersValue: "Министерство + RAU",
-        statExam: "Экзамены",
-        statExamValue: "DTM и офлайн",
-        statDorm: "Условия для студентов",
-        statDormValue: "Есть общежитие",
-        aboutLabel: "Общая информация",
-        aboutTitle: "IAU — международный центр аграрного образования",
-        aboutText: "Университет работает по международным академическим стандартам и предлагает модель обучения, объединяющую теорию и практику.",
-        timeline1Title: "Создан на основании постановления Президента",
-        timeline1Text: "Деятельность университета началась на основании постановления PQ-237 от 7 мая 2022 года.",
-        timeline2Title: "Партнерство с Royal Agricultural University",
-        timeline2Text: "Сотрудничество дает возможность получить британский диплом на английских программах.",
-        timeline3Title: "Практико-ориентированная среда",
-        timeline3Text: "Студенты получают опыт через реальный сектор, exchange-программы и международный networking.",
-        programsLabel: "Образовательные направления",
-        programsTitle: "Программы бакалавриата и магистратуры",
-        programsText: "Доступно обучение на английском, узбекском и русском языках. На английских программах выдается международный диплом.",
-        englishProgramsLabel: "Программы на английском языке",
-        localProgramsLabel: "Программы на узбекском/русском",
-        mastersLabel: "Магистратура",
-        pricingLabel: "Контракт и скидки",
-        pricingTitle: "Стоимость обучения и льготы",
-        pricingText: "Стоимость показана простыми блоками, за полными деталями можно обратиться в приемную комиссию.",
-        examLabel: "Порядок экзаменов",
-        benefitsLabel: "Дополнительные возможности",
-        opportunityLabel: "Международная и студенческая среда",
-        opportunityTitle: "Что предлагает IAU?",
-        opportunityText: "Университет готовит студентов к будущей профессии через сильный профессорский состав, практическое обучение и международный опыт.",
-        internationalLabel: "Международные возможности",
-        studentLifeLabel: "Условия для студентов",
-        facultyLabel: "География преподавателей",
-        leadersLabel: "Руководство и сотрудники",
-        leadersTitle: "Ключевые ответственные",
-        leadersText: "Ниже приведен пример основного руководящего и академического состава университета.",
-        teachersLabel: "Профессора и преподаватели",
-        scriptLabel: "Скрипт приемной комиссии",
-        scriptTitle: "Готовый текст для общения с абитуриентом",
-        scriptIntro: "Этот блок можно использовать как краткий и структурированный сценарий разговора для операторов приемной комиссии.",
-        databaseLabel: "Простая база данных",
-        databaseTitle: "Готовая структура для Supabase",
-        databaseText: "В файле supabase_lightweight.sql создана простая схема и seed-данные для контента этой страницы.",
-        contactLabel: "Контакты",
-        contactTitle: "Связь с приемной комиссией",
-        contactText: "Можно связаться по телефону, email и через Telegram-бот.",
-        footerText: "Билингвальная презентационная страница в агро-стиле и пример простой базы Supabase.",
-        footerAction: "Наверх",
-        aboutFacts: [
-          { title: "Полное название", text: "International Agriculture University (IAU)" },
-          { title: "Расположение", text: "Ташкентская область, Кибрайский район" },
-          { title: "Тип", text: "Международный университет с государственным участием" },
-          { title: "Учредители", text: "Министерство сельского хозяйства Республики Узбекистан и Royal Agricultural University" }
-        ],
-        englishPrograms: [
-          "BSc Agro-Economics",
-          "BSc Agro-Logistics",
-          "BSc Food Safety Management",
-          "BSc Smart Sustainable Agriculture",
-          "BSc Business Management"
-        ],
-        localPrograms: [
-          "Экономика — 14 млн сум",
-          "Агрономия — 12 млн сум",
-          "Пищевая технология — 12 млн сум",
-          "Биология — 12 млн сум",
-          "Филология и обучение языкам (английский язык) — 14 млн сум"
-        ],
-        masters: [
-          "MSc Agri-Business Management",
-          "MSc Sustainable Agriculture and Food Safety"
-        ],
-        prices: [
-          { title: "Англоязычные программы", price: "29.9 млн", text: "Очное обучение с возможностью международного диплома." },
-          { title: "Узбекские/русские программы", price: "12-14 млн", text: "Доступный диапазон контракта для локальных программ." },
-          { title: "Магистратура", price: "48.8 млн", text: "Магистерские программы по агробизнесу и устойчивому сельскому хозяйству." }
-        ],
-        examRules: [
-          { title: "Международные направления", text: "Экзамен сдается через DTM." },
-          { title: "Программы на узбекском и русском", text: "Вступительный экзамен проходит офлайн." }
-        ],
-        discounts: [
-          { title: "Скидка 15%", text: "Для абитуриентов, оплативших 100% до 30 июня." },
-          { title: "Скидка 10%", text: "Для тех, кто оплатил 25% до 31 июля." },
-          { title: "Льгота до 25%", text: "Для детей сотрудников Минсельхоза при предоставлении справки до 30 июня." }
-        ],
-        opportunities: [
-          { title: "Exchange-программы", text: "Обучение по обмену в Великобритании и странах Европы." },
-          { title: "Study tour", text: "Академические визиты и международные поездки." },
-          { title: "Networking", text: "Глобальная профессиональная сеть и международная среда." },
-          { title: "Британский диплом", text: "Только для программ на английском языке." }
-        ],
-        studentLife: [
-          { title: "Общежитие", text: "Для студентов предусмотрены условия проживания." },
-          { title: "Студенческие клубы", text: "Платформа для социальной активности и развития." },
-          { title: "Практические занятия", text: "Теория и практика объединены в учебном процессе." },
-          { title: "Англоязычная академическая среда", text: "Современная учебная среда с международными преподавателями." }
-        ],
-        facultyCountries: [
-          "США", "Канада", "Индия", "Пакистан", "Испания", "Бельгия", "Тунис", "Польша", "Нигерия"
-        ],
-        leaders: [
-          { name: "Munira Aminova", role: "Ректор" },
-          { name: "Abdulla Primov", role: "Проректор по научным исследованиям, инновациям и духовно-просветительской работе" },
-          { name: "Anvar Tursunov", role: "Проректор по учебной работе" },
-          { name: "Sunnatilla Rashidov", role: "Проректор по финансам и экономике" },
-          { name: "Jahongir Alimov", role: "Декан факультета агронаук и бизнеса" },
-          { name: "Jurij Renkas", role: "Декан факультета агроэкономики" }
-        ],
-        teachers: [
-          { name: "Dr. Sergei Yazvenko", role: "Профессор" },
-          { name: "Carlos Martinez", role: "Доцент" },
-          { name: "Dr. Bekhzod Egamberdiev", role: "Доцент" },
-          { name: "Dr. Dinara Muzafarova", role: "Доцент" },
-          { name: "Dr. Gabriel Ogunmola", role: "Доцент" },
-          { name: "Dr. Grace Mukupa", role: "Доцент" }
-        ],
-        scriptBlocks: [
-          {
-            title: "Установление контакта",
-            text: "Здравствуйте, [Имя], меня зовут Диёра, я звоню из приемной комиссии International Agriculture University. Вы проявляли интерес к обучению в 2026-2027 учебном году, поэтому я хотела бы кратко рассказать вам о нашем университете."
-          },
-          {
-            title: "Краткая презентация",
-            text: "IAU был создан в 2022 году в сотрудничестве с Royal Agricultural University. Для английских программ доступны британский диплом, международные преподаватели и exchange-возможности."
-          },
-          {
-            title: "Работа с возражениями",
-            text: "Если абитуриент считает контракт дорогим, можно подчеркнуть, что IAU является уникальным государственным вузом в Узбекистане с выдачей британского диплома."
-          }
-        ],
-        scriptQuestions: [
-          { title: "Понять абитуриента", text: "Что для вас наиболее важно при выборе университета или направления?" },
-          { title: "Профессиональная мотивация", text: "Почему вы выбрали именно это направление и чем хотите заниматься в будущем?" },
-          { title: "Главная цель", text: "Какова основная цель вашего обучения и какие возможности для вас особенно важны?" }
-        ],
-        databaseTables: [
-          {
-            title: "universities",
-            text: "Основной профиль университета: название, расположение, дата основания, партнерский вуз, телефон и email.",
-            code: "name\nlocation\nfounded_at\npartner_university\nphone\nemail"
-          },
-          {
-            title: "programs",
-            text: "Программы бакалавриата и магистратуры: язык, уровень, стоимость контракта и тип диплома.",
-            code: "title\nlanguage\nlevel\ntuition_uzs\ndiploma_type"
-          },
-          {
-            title: "admission_notes",
-            text: "Правила экзаменов, скидки, тексты скриптов и вопросы для приемной комиссии.",
-            code: "category\ntitle\nbody\nlanguage\npriority"
-          }
-        ],
-        contacts: [
-          { title: "Телефон", text: "+998 55 517 00 71" },
-          { title: "Email", text: "info@iau.uz" },
-          { title: "Telegram-бот", text: "@iau_admission_bot" },
-          { title: "Адрес", text: "Ташкентская область, Кибрайский район" }
-        ]
-      }
+    // ================================
+    // GOOGLE SHEETS API SOZLAMASI
+    // ================================
+    // Quyidagi URL o‘rniga Apps Script Web App URL qo‘ying.
+    const API_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+    // Agar vaqtincha API ishlamasa, demo ma'lumotlar ko‘rinadi.
+    const DEMO_DATA = {
+      Skript: [
+        {
+          id: 's1',
+          title: '1) Skript bo‘limi bo‘yicha umumiy ma’lumot',
+          summary: 'Bu bo‘limda operator yoki foydalanuvchi uchun qisqa bosh qism ko‘rinadi.',
+          details: 'Bu yerda skript bo‘yicha batafsil ma’lumotlar yoziladi.\n\nMasalan, ishlash tartibi, bosqichlar, izohlar va qo‘shimcha tushuntirishlar shu joyda bo‘ladi.'
+        },
+        {
+          id: 's2',
+          title: '2) Skript bilan ishlash tartibi',
+          summary: 'Qisqa ko‘rsatma.',
+          details: '1. Kerakli ma’lumot tanlanadi.\n2. Yangi yozuv qo‘shiladi.\n3. Import orqali bir nechta yozuv kiritiladi.'
+        }
+      ],
+      Qabul: [
+        {
+          id: 'q1',
+          title: '1) Qabul bo‘limi bo‘yicha umumiy ma’lumot',
+          summary: 'Qabul jarayoniga oid asosiy tushuntirish shu yerda bo‘ladi.',
+          details: 'Bu joyda qabulga oid batafsil ma’lumotlar yoziladi.\n\nMasalan: hujjatlar, muddatlar, javoblar va boshqa kerakli izohlar.'
+        },
+        {
+          id: 'q2',
+          title: '2) Hujjat topshirish tartibi',
+          summary: 'Kerakli hujjatlar ro‘yxati.',
+          details: 'Pasport nusxasi, attestat yoki diplom, fotosurat va boshqa zarur hujjatlar shu qismda batafsil ko‘rsatiladi.'
+        }
+      ]
     };
 
-    const state = { lang: "uz" };
+    let currentSection = '';
+    let currentData = [];
+    let isAdminOpen = false;
 
-    const listItem = item => `
-      <article class="list-item">
-        <strong>${item.title}</strong>
-        <div class="muted">${item.text}</div>
-      </article>
-    `;
-
-    function renderCards(targetId, items, mapper) {
-      document.getElementById(targetId).innerHTML = items.map(mapper).join("");
+    function goHome(){
+      currentSection = '';
+      currentData = [];
+      document.getElementById('homeView').classList.remove('hidden');
+      document.getElementById('sectionView').classList.remove('active');
+      document.getElementById('searchInput').value = '';
+      document.getElementById('itemsContainer').innerHTML = '';
+      document.getElementById('summaryBox').innerHTML = '';
     }
 
-    function renderLanguage(lang) {
-      state.lang = lang;
-      const data = content[lang];
+    async function openSection(sectionName){
+      currentSection = sectionName;
+      document.getElementById('homeView').classList.add('hidden');
+      document.getElementById('sectionView').classList.add('active');
+      await loadSectionData();
+    }
 
-      document.documentElement.lang = lang;
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.dataset.i18n;
-        if (data[key]) {
-          el.textContent = data[key];
+    async function loadSectionData(){
+      try {
+        if (!API_URL || API_URL.includes('PASTE_YOUR')) throw new Error('API URL qo‘yilmagan');
+
+        const res = await fetch(`${API_URL}?section=${encodeURIComponent(currentSection)}`);
+        if (!res.ok) throw new Error('Server javobi xato');
+
+        const json = await res.json();
+        currentData = Array.isArray(json.data) ? json.data : [];
+      } catch (err) {
+        currentData = DEMO_DATA[currentSection] || [];
+      }
+
+      renderSummary();
+      renderItems();
+    }
+
+    function renderSummary(){
+      const box = document.getElementById('summaryBox');
+      const first = currentData[0];
+
+      if (!first) {
+        box.innerHTML = `
+          <h3>${escapeHtml(currentSection)}</h3>
+          <p>Hozircha ma’lumot topilmadi.</p>
+        `;
+        return;
+      }
+
+      box.innerHTML = `
+        <h3>${escapeHtml(currentSection)} bo‘limi</h3>
+        <p><strong>${escapeHtml(first.title || '')}</strong><br>${nl2br(escapeHtml(first.summary || ''))}</p>
+      `;
+    }
+
+    function renderItems(){
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const container = document.getElementById('itemsContainer');
+
+      const filtered = currentData.filter(item => {
+        const text = `${item.title || ''} ${item.summary || ''} ${item.details || ''}`.toLowerCase();
+        return text.includes(q);
+      });
+
+      if (!filtered.length) {
+        container.innerHTML = `<div class="empty-box">Qidiruv bo‘yicha ma’lumot topilmadi.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="item-card">
+          <h4>${escapeHtml(item.title || '')}</h4>
+          <div class="item-summary">${nl2br(escapeHtml(item.summary || ''))}</div>
+          <div class="item-details">${nl2br(escapeHtml(item.details || ''))}</div>
+        </div>
+      `).join('');
+    }
+
+    function toggleAdmin(){
+      isAdminOpen = !isAdminOpen;
+      document.getElementById('adminBox').classList.toggle('active', isAdminOpen);
+    }
+
+    async function addItem(){
+      const title = document.getElementById('itemTitle').value.trim();
+      const summary = document.getElementById('itemSummary').value.trim();
+      const details = document.getElementById('itemDetails').value.trim();
+
+      if (!title || !summary || !details) {
+        alert('Barcha maydonlarni to‘ldiring.');
+        return;
+      }
+
+      const payload = {
+        action: 'addItem',
+        section: currentSection,
+        item: { title, summary, details }
+      };
+
+      try {
+        if (!API_URL || API_URL.includes('PASTE_YOUR')) throw new Error('API URL qo‘yilmagan');
+
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.message || 'Saqlashda xatolik');
+
+        clearForm();
+        await loadSectionData();
+        alert('Ma’lumot saqlandi.');
+      } catch (err) {
+        const fallbackItem = {
+          id: Date.now().toString(),
+          title,
+          summary,
+          details
+        };
+        currentData.unshift(fallbackItem);
+        clearForm();
+        renderSummary();
+        renderItems();
+        alert('API ulanmagan. Ma’lumot vaqtincha sahifada ko‘rsatildi.');
+      }
+    }
+
+    async function handleImport(event){
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const password = prompt('Import qilish uchun parolni kiriting');
+      if (password === null) {
+        event.target.value = '';
+        return;
+      }
+
+      try {
+        const text = await file.text();
+        const items = JSON.parse(text);
+
+        if (!Array.isArray(items)) {
+          throw new Error('JSON massiv ko‘rinishida bo‘lishi kerak');
         }
-      });
 
-      renderCards("aboutFacts", data.aboutFacts, listItem);
-      renderCards("programsEnglish", data.englishPrograms, title => listItem({ title, text: "" }));
-      renderCards("programsLocal", data.localPrograms, title => listItem({ title, text: "" }));
-      renderCards("mastersPrograms", data.masters, item => `<div class="chip">${item}</div>`);
-      renderCards("prices", data.prices, item => `
-        <article class="price-card">
-          <span class="price-tag">${item.price}</span>
-          <strong style="margin-top:14px">${item.title}</strong>
-          <div class="muted">${item.text}</div>
-        </article>
-      `);
-      renderCards("examRules", data.examRules, listItem);
-      renderCards("discounts", data.discounts, listItem);
-      renderCards("opportunities", data.opportunities, listItem);
-      renderCards("studentLife", data.studentLife, listItem);
-      renderCards("facultyCountries", data.facultyCountries, item => `<div class="chip">${item}</div>`);
-      renderCards("leaders", data.leaders, item => `
-        <article class="person-card">
-          <strong>${item.name}</strong>
-          <div class="person-role">${item.role}</div>
-        </article>
-      `);
-      renderCards("teachers", data.teachers, item => `
-        <article class="person-card">
-          <strong>${item.name}</strong>
-          <div class="person-role">${item.role}</div>
-        </article>
-      `);
-      renderCards("scriptBlocks", data.scriptBlocks, listItem);
-      renderCards("scriptQuestions", data.scriptQuestions, listItem);
-      renderCards("databaseTables", data.databaseTables, item => `
-        <article class="db-card">
-          <strong>${item.title}</strong>
-          <div class="muted">${item.text}</div>
-          <code>${item.code}</code>
-        </article>
-      `);
-      renderCards("contactsGrid", data.contacts, item => `
-        <article class="contact-card">
-          <strong>${item.title}</strong>
-          <div class="muted">${item.text}</div>
-        </article>
-      `);
+        if (!API_URL || API_URL.includes('PASTE_YOUR')) {
+          if (password !== '12345') {
+            throw new Error('Noto‘g‘ri parol');
+          }
+          currentData = [...items, ...currentData];
+          renderSummary();
+          renderItems();
+          alert('Demo rejimda import qilindi.');
+          event.target.value = '';
+          return;
+        }
 
-      document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.langBtn === lang);
-      });
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'importItems',
+            section: currentSection,
+            password,
+            items
+          })
+        });
 
-      document.title = lang === "uz"
-        ? "International Agriculture University (IAU)"
-        : "International Agriculture University (IAU)";
-      document.getElementById("logoSlot").textContent = lang === "uz" ? "LOGO JOYI" : "МЕСТО ДЛЯ ЛОГО";
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.message || 'Import xatoligi');
+
+        await loadSectionData();
+        alert('Import bajarildi.');
+      } catch (err) {
+        alert(err.message || 'Importda xatolik yuz berdi.');
+      }
+
+      event.target.value = '';
     }
 
-    document.querySelectorAll("[data-lang-btn]").forEach(btn => {
-      btn.addEventListener("click", () => renderLanguage(btn.dataset.langBtn));
-    });
+    function clearForm(){
+      document.getElementById('itemTitle').value = '';
+      document.getElementById('itemSummary').value = '';
+      document.getElementById('itemDetails').value = '';
+    }
 
-    renderLanguage("uz");
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function nl2br(str){
+      return String(str).replace(/\n/g, '<br>');
+    }
   </script>
 </body>
 </html>
